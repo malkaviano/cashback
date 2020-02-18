@@ -5,5 +5,6 @@ namespace Domain.Interfaces {
     {
         Task<T> Get(string key);
         Task Create(T entity);
+        Task Save();
     }
 }

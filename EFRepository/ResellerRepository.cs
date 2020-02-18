@@ -14,8 +14,6 @@ namespace EFRepository
         public ResellerRepository(DataContext context)
         {
             this.context = context;
-
-            context.Database.EnsureCreated();
         }
 
         public async Task<Reseller> Get(string key)
@@ -27,6 +25,11 @@ namespace EFRepository
         {
             await context.Resellers.AddAsync(entity);
 
+            await Save();
+        }
+
+        public async Task Save()
+        {
             await context.SaveChangesAsync();
         }
     }

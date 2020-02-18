@@ -37,9 +37,17 @@ namespace Api
 
             services.AddScoped<IRepository<Reseller>, ResellerRepository>();
 
+            services.AddScoped<ISalesRepository, SalesRepository>();
+
             services.AddScoped<IService<Reseller>, ResellerService>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddScoped<ISalesService, SalesService>();
+
+            services.AddMvc()
+                    .AddJsonOptions(
+                        options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    )
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddCors();
         }
