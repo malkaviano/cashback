@@ -5,6 +5,7 @@ using Api.Dtos;
 using Domain.Interfaces;
 using Domain.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {

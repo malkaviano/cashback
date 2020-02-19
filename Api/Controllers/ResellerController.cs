@@ -7,6 +7,8 @@ using Api.Dtos;
 using Domain.Interfaces;
 using Domain.Models;
 using AutoMapper;
+using Api.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
@@ -14,12 +16,14 @@ namespace Api.Controllers
     [ApiController]
     public class ResellerController : ControllerBase
     {
-        private readonly IResellerService service;
+        private readonly IResellerService resellerService;
+        private readonly AuthService authService;
         private readonly IMapper mapper;
 
-        public ResellerController(IResellerService service, IMapper mapper)
+        public ResellerController(IResellerService service, AuthService authService, IMapper mapper)
         {
-            this.service = service;
+            this.resellerService = service;
+            this.authService = authService;
             this.mapper = mapper;
         }
 
@@ -29,7 +33,7 @@ namespace Api.Controllers
         {
             try
             {
-                var result = await service.GetByCpf(cpf);
+                var result = await resellerService.GetByCpf(cpf);
 
                 if (result == null)
                 {
@@ -47,15 +51,24 @@ namespace Api.Controllers
 
         // POST api/reseller
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody] ResellerDto dto)
         {
             var reseller = mapper.Map<Reseller>(dto);
 
             try
             {
-                await service.Create(reseller);
+                if (await authService.CreateUser(dto.Email, dto.Password))
+                {
+                    await resellerService.Create(reseller);
 
-                return Created(new Uri($"/api/resseler/#{reseller.Cpf}", UriKind.Relative), reseller);
+                    return Created(new Uri($"/api/resseler/#{reseller.Cpf}", UriKind.Relative), reseller);
+                }
+                else
+                {
+                    return new BadRequestObjectResult("Não foi possivel criar login");
+                }
+
             }
             catch (System.Exception)
             {
