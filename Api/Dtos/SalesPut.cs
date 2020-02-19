@@ -12,6 +12,6 @@ namespace Api.Dtos
         public decimal? Value { get; set; }
 
         [DataType(DataType.DateTime)]
-        public DateTime Data { get; set; }
+        public DateTime? Data { get; set; }
     }
 }
