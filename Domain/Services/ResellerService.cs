@@ -3,7 +3,7 @@ using Domain.Models;
 using System.Threading.Tasks;
 
 namespace Domain.Services {
-    public class ResellerService: IService<Reseller> {
+    public class ResellerService: IResellerService {
         private readonly IRepository<Reseller> repository;
 
         public ResellerService(IRepository<Reseller> repository)

@@ -14,10 +14,10 @@ namespace Api.Controllers
     [ApiController]
     public class ResellerController : ControllerBase
     {
-        private readonly IService<Reseller> service;
+        private readonly IResellerService service;
         private readonly IMapper mapper;
 
-        public ResellerController(IService<Reseller> service, IMapper mapper)
+        public ResellerController(IResellerService service, IMapper mapper)
         {
             this.service = service;
             this.mapper = mapper;

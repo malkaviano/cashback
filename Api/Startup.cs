@@ -39,7 +39,7 @@ namespace Api
 
             services.AddScoped<ISalesRepository, SalesRepository>();
 
-            services.AddScoped<IService<Reseller>, ResellerService>();
+            services.AddScoped<IResellerService, ResellerService>();
 
             services.AddScoped<ISalesService, SalesService>();
 
