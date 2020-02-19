@@ -25,7 +25,11 @@ public class MappingProfile : Profile
     {
         CreateMap<Sales, Sales>()
                 .ForAllMembers(o => o.Condition((source, destination, member) => {
-                    return member != null && member.ToString().Trim() != "";
+                    return member != null &&
+                            member.ToString().Trim() != "" &&
+                            member as decimal? != 0 &&
+                            member as DateTime? != DateTime.MinValue
+                            ;
                 }));
     }
 }

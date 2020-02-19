@@ -60,6 +60,11 @@ namespace Domain.Services
 
             var newSales = Mapping.Mapper.Map(entity, sales);
 
+            var result = strategy.CashbackValue(newSales.Value);
+
+            newSales.CashbackValue = result.cashback;
+            newSales.CashbackPercentage = result.percentage;
+
             await salesRepo.Update(newSales);
         }
 
