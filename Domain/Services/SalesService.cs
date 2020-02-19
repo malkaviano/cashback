@@ -50,7 +50,7 @@ namespace Domain.Services
                 throw new Exception("Sales not found");
             }
 
-            if (sales.Status == SalesStatus.VALIDATING)
+            if (sales.Status != SalesStatus.VALIDATING)
             {
                 throw new Exception("Sales cannot be edit");
             }
@@ -71,7 +71,7 @@ namespace Domain.Services
                 throw new Exception("Sales not found");
             }
 
-            if (sales.Status == SalesStatus.VALIDATING)
+            if (sales.Status != SalesStatus.VALIDATING)
             {
                 throw new Exception("Sales cannot be deleted");
             }
