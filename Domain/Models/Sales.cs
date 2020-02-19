@@ -4,23 +4,9 @@ using Domain.Values;
 
 namespace Domain.Models
 {
-    public class Sales
+    public class Sales : Identifiable
     {
-        private string cpf;
-
-        public long Id { get; set; }
-
         public string Code { get; set; }
-
-        // TODO: Remove duplicated code. See Reseller
-        public string Cpf
-        {
-            get { return cpf; }
-            set
-            {
-                cpf = new String(value?.Where(Char.IsDigit).ToArray());
-            }
-        }
 
         public decimal? Value { get; set; }
 
