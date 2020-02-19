@@ -23,7 +23,7 @@ namespace Api.Controllers
 
         // GET api/cashback/cpf
         [HttpGet("{cpf}")]
-        public async Task<CashbackDto> Get(string cpf)
+        public async Task<CashbackGet> Get(string cpf)
         {
             var client = cashbackFactory.Create();
 

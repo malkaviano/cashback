@@ -52,7 +52,7 @@ namespace Api.Controllers
         // POST api/reseller
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Post([FromBody] ResellerDto dto)
+        public async Task<IActionResult> Post([FromBody] ResellerPost dto)
         {
             var reseller = mapper.Map<Reseller>(dto);
 

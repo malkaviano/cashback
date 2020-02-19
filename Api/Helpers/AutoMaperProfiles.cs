@@ -8,7 +8,7 @@ namespace Api.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<ResellerDto, Reseller>();
+            CreateMap<ResellerPost, Reseller>();
 
             CreateMap<SalesPost, Sales>();
 

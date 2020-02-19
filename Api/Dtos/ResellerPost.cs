@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Api.Dtos
 {
-    public class ResellerDto
+    public class ResellerPost
     {
         [Required]
         [StringLength(50, MinimumLength = 5)]

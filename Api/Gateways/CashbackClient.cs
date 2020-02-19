@@ -18,7 +18,7 @@ namespace Api.Gateways
             _httpClient.DefaultRequestHeaders.Add("token","ZXPURQOARHiMc6Y0flhRC1LVlZQVFRnm");
         }
 
-        public async Task<CashbackDto> GetCashback(string cpf)
+        public async Task<CashbackGet> GetCashback(string cpf)
         {
             var request = CreateRequest(cpf);
 
@@ -29,7 +29,7 @@ namespace Api.Gateways
 
             using (var contentStream = await result.Content.ReadAsStreamAsync())
             {
-                return await JsonSerializer.DeserializeAsync<CashbackDto>(
+                return await JsonSerializer.DeserializeAsync<CashbackGet>(
                     contentStream,
                     new JsonSerializerOptions {PropertyNameCaseInsensitive = true}
                 );

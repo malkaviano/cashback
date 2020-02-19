@@ -5,6 +5,6 @@ namespace Api.Gateways
 {
     public interface ICashbackClient
     {
-        Task<CashbackDto> GetCashback(string cpf);
+        Task<CashbackGet> GetCashback(string cpf);
     }
 }
