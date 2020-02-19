@@ -57,7 +57,7 @@ namespace Api.Controllers
             {
                 await salesService.Create(sales);
 
-                return Created(new Uri($"/api/sales/#{sales.Cpf}", UriKind.Relative), sales);
+                return StatusCode(201);
             }
             catch (System.Exception ex)
             {
