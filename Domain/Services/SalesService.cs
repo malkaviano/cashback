@@ -35,15 +35,9 @@ namespace Domain.Services
 
             await salesRepo.Create(entity);
         }
-
-        public async Task<Sales[]> Get()
+        public async Task Update(string code, decimal value, DateTime data)
         {
-            return await salesRepo.Get();
-        }
-
-        public async Task Update(Sales entity)
-        {
-            var sales = await salesRepo.Find(entity.Id);
+            var sales = await salesRepo.FindByCode(code);
 
             if (sales == null)
             {
@@ -55,16 +49,17 @@ namespace Domain.Services
                 throw new Exception("Sales cannot be edit");
             }
 
-            var newSales = Mapping.Mapper.Map(entity, sales);
+            sales.Data = data;
+            sales.Value = value;
 
-            strategy.Apply(newSales);
+            strategy.Apply(sales);
 
-            await salesRepo.Update(newSales);
+            await salesRepo.Update(sales);
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(string code)
         {
-            var sales = await salesRepo.Find(id);
+            var sales = await salesRepo.FindByCode(code);
 
             if (sales == null)
             {
@@ -77,6 +72,11 @@ namespace Domain.Services
             }
 
             await salesRepo.Delete(sales);
+        }
+
+        public async Task<Sales[]> GetByCpf(string cpf)
+        {
+            return await salesRepo.GetByCpf(cpf);
         }
     }
 }

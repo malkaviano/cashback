@@ -17,11 +17,6 @@ namespace EFRepository
             this.context = context;
         }
 
-        public async Task<Sales[]> Get()
-        {
-            return await context.Sales.ToArrayAsync();
-        }
-
         public async Task Create(Sales entity)
         {
             var reseller = await context.Resellers.SingleOrDefaultAsync(
@@ -45,9 +40,9 @@ namespace EFRepository
             await context.SaveChangesAsync();
         }
 
-        public async Task<Sales> Find(long id)
+        public async Task<Sales> FindByCode(string code)
         {
-            return await context.Sales.FindAsync(id);
+            return await context.Sales.Where(s => s.Code == code).SingleOrDefaultAsync();
         }
 
         public async Task Update(Sales entity)
@@ -62,6 +57,11 @@ namespace EFRepository
             context.Sales.Remove(entity);
 
             await Save();
+        }
+
+        public async Task<Sales[]> GetByCpf(string cpf)
+        {
+            return await context.Sales.Where(s => s.Cpf == cpf).ToArrayAsync();
         }
     }
 }

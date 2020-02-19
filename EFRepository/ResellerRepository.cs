@@ -16,9 +16,9 @@ namespace EFRepository
             this.context = context;
         }
 
-        public async Task<Reseller> Get(string key)
+        public async Task<Reseller> GetByCpf(string cpf)
         {
-            return await context.Resellers.Where(r => r.Cpf == key).SingleOrDefaultAsync();
+            return await context.Resellers.Where(r => r.Cpf == cpf).SingleOrDefaultAsync();
         }
 
         public async Task Create(Reseller entity)
@@ -31,6 +31,11 @@ namespace EFRepository
         public async Task Save()
         {
             await context.SaveChangesAsync();
+        }
+
+        public async Task<Reseller> GetByEmail(string email)
+        {
+            return await context.Resellers.Where(r => r.Email == email).SingleOrDefaultAsync();
         }
     }
 }

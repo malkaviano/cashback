@@ -13,22 +13,25 @@ namespace Api.Controllers
     [ApiController]
     public class SalesController : ControllerBase
     {
-        private readonly ISalesService service;
+        private readonly ISalesService salesService;
+        private readonly IResellerService resellerService;
         private readonly IMapper mapper;
 
-        public SalesController(ISalesService service, IMapper mapper)
+        public SalesController(ISalesService salesService, IResellerService resellerService, IMapper mapper)
         {
-            this.service = service;
+            this.salesService = salesService;
+            this.resellerService = resellerService;
             this.mapper = mapper;
         }
 
         // GET api/sales
         [HttpGet]
-        public async Task<IActionResult> Get(String cpf)
+        public async Task<IActionResult> Get()
         {
             try
             {
-                var result = await service.Get();
+                var reseller = await resellerService.GetByEmail(User.Identity.Name);
+                var result = await salesService.GetByCpf(reseller.Cpf);
 
                 if (result == null)
                 {
@@ -52,7 +55,7 @@ namespace Api.Controllers
 
             try
             {
-                await service.Create(sales);
+                await salesService.Create(sales);
 
                 return Created(new Uri($"/api/sales/#{sales.Cpf}", UriKind.Relative), sales);
             }
@@ -63,17 +66,13 @@ namespace Api.Controllers
 
         }
 
-        // PUT api/sales/id
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Patch(int id, [FromBody] SalesPut dto)
+        // PUT api/sales
+        [HttpPut]
+        public async Task<IActionResult> Patch([FromBody] SalesPut dto)
         {
-            var sales = mapper.Map<Sales>(dto);
-
-            sales.Id = id;
-
             try
             {
-                await service.Update(sales);
+                await salesService.Update(dto.Code, dto.Value, dto.Data);
 
                 return StatusCode(200);
             }
@@ -83,13 +82,13 @@ namespace Api.Controllers
             }
         }
 
-        // DELETE api/sales/id
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        // DELETE api/sales/code
+        [HttpDelete("{code}")]
+        public async Task<IActionResult> Delete(string code)
         {
             try
             {
-                await service.Delete(id);
+                await salesService.Delete(code);
 
                 return StatusCode(200);
             }

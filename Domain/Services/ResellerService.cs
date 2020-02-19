@@ -18,7 +18,12 @@ namespace Domain.Services {
 
         public async Task<Reseller> GetByCpf(string cpf)
         {
-            return await repository.Get(cpf);
+            return await repository.GetByCpf(cpf);
+        }
+
+        public async Task<Reseller> GetByEmail(string email)
+        {
+            return await repository.GetByEmail(email);
         }
     }
 }

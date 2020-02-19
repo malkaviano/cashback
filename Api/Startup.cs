@@ -108,6 +108,7 @@ namespace Api
                 options.Password.RequiredUniqueChars = 1;
             });
 
+            // Redirect fix
             services.ConfigureApplicationCookie(options =>
             {
                 // Not creating a new object since ASP.NET Identity has created
