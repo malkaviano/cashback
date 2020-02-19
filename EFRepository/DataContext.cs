@@ -27,6 +27,10 @@ namespace EFRepository
                 .IsRequired();
 
             modelBuilder.Entity<Sales>()
+                .HasIndex(s => s.Code)
+                .IsUnique();
+
+            modelBuilder.Entity<Sales>()
                 .Property(s => s.Value)
                 .IsRequired();
 
