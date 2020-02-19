@@ -14,14 +14,18 @@ namespace Api.Gateways
         public CashbackClient(HttpClient httpClient)
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+
+            _httpClient.DefaultRequestHeaders.Add("token","ZXPURQOARHiMc6Y0flhRC1LVlZQVFRnm");
         }
 
         public async Task<CashbackDto> GetCashback(string cpf)
         {
             var request = CreateRequest(cpf);
 
-            var result = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
-                                        .ConfigureAwait(false);
+            var result = await _httpClient.SendAsync(
+                request,
+                HttpCompletionOption.ResponseHeadersRead
+            ).ConfigureAwait(false);
 
             using (var contentStream = await result.Content.ReadAsStreamAsync())
             {
