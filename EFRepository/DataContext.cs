@@ -35,6 +35,10 @@ namespace EFRepository
                 .HasColumnType("decimal(10,2)");
 
             modelBuilder.Entity<Sales>()
+                .Property(s => s.CashbackValue)
+                .HasColumnType("decimal(10,2)");
+
+            modelBuilder.Entity<Sales>()
                 .Property(s => s.Cpf)
                 .IsRequired();
 

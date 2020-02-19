@@ -12,14 +12,17 @@ namespace Domain.Services
     {
         private readonly ISalesRepository salesRepo;
         private readonly IMapper mapper;
+        private readonly ICashbackStrategy strategy;
 
         public SalesService(
             ISalesRepository salesRepo,
-            IMapper mapper
+            IMapper mapper,
+            ICashbackStrategy strategy
         )
         {
             this.salesRepo = salesRepo;
             this.mapper = mapper;
+            this.strategy = strategy;
         }
 
         public async Task Create(Sales entity)
@@ -27,6 +30,11 @@ namespace Domain.Services
             entity.Status = entity.Cpf == "15350946056" ?
                                             SalesStatus.APPROVED :
                                             SalesStatus.VALIDATING;
+
+            var result = strategy.CashbackValue(entity.Value);
+
+            entity.CashbackValue = result.cashback;
+            entity.CashbackPercentage = result.percentage;
 
             await salesRepo.Create(entity);
         }
@@ -45,7 +53,8 @@ namespace Domain.Services
                 throw new Exception("Sales not found");
             }
 
-            if (sales.Status == SalesStatus.VALIDATING) {
+            if (sales.Status == SalesStatus.VALIDATING)
+            {
                 throw new Exception("Sales cannot be edit");
             }
 
@@ -63,7 +72,8 @@ namespace Domain.Services
                 throw new Exception("Sales not found");
             }
 
-            if (sales.Status == SalesStatus.VALIDATING) {
+            if (sales.Status == SalesStatus.VALIDATING)
+            {
                 throw new Exception("Sales cannot be deleted");
             }
 

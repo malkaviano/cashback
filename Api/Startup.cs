@@ -17,6 +17,7 @@ using Domain.Services;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Api.Gateways;
+using Domain.Cashback;
 
 namespace Api
 {
@@ -43,6 +44,8 @@ namespace Api
             services.AddScoped<IResellerService, ResellerService>();
 
             services.AddScoped<ISalesService, SalesService>();
+
+            services.AddScoped<ICashbackStrategy, CashbackDefaultStrategy>();
 
             services.AddMvc()
                     .AddJsonOptions(
