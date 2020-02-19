@@ -11,7 +11,7 @@ namespace Domain.Models {
         public string Cpf {
             get { return cpf; }
             set {
-                cpf = new String(value.Where(Char.IsDigit).ToArray());
+                cpf = new String(value?.Where(Char.IsDigit).ToArray());
             }
         }
     }

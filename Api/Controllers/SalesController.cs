@@ -57,7 +57,7 @@ namespace Api.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest();
+                return new BadRequestObjectResult(ex.Message);
             }
 
         }
@@ -78,7 +78,7 @@ namespace Api.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest();
+                return new BadRequestObjectResult(ex.Message);
             }
         }
 
@@ -94,7 +94,7 @@ namespace Api.Controllers
             }
             catch (System.Exception ex)
             {
-                return NotFound();
+                return new BadRequestObjectResult(ex.Message);
             }
         }
     }

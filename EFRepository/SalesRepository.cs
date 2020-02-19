@@ -57,15 +57,9 @@ namespace EFRepository
             await Save();
         }
 
-        public async Task Delete(long id)
+        public async Task Delete(Sales entity)
         {
-            var result = await Find(id);
-
-            if(result == null) {
-                throw new System.Exception("Sales not found");
-            }
-
-            context.Sales.Remove(result);
+            context.Sales.Remove(entity);
 
             await Save();
         }

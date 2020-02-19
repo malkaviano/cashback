@@ -8,7 +8,7 @@ namespace Domain.Interfaces {
         Task<Sales> Find(long id);
         Task Create(Sales entity);
         Task Update(Sales entity);
-        Task Delete(long id);
+        Task Delete(Sales entity);
         Task Save();
     }
 }

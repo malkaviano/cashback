@@ -45,6 +45,10 @@ namespace Domain.Services
                 throw new Exception("Sales not found");
             }
 
+            if (sales.Status == SalesStatus.VALIDATING) {
+                throw new Exception("Sales cannot be edit");
+            }
+
             var newSales = Mapping.Mapper.Map(entity, sales);
 
             await salesRepo.Update(newSales);
@@ -52,7 +56,18 @@ namespace Domain.Services
 
         public async Task Delete(int id)
         {
-            await salesRepo.Delete(id);
+            var sales = await salesRepo.Find(id);
+
+            if (sales == null)
+            {
+                throw new Exception("Sales not found");
+            }
+
+            if (sales.Status == SalesStatus.VALIDATING) {
+                throw new Exception("Sales cannot be deleted");
+            }
+
+            await salesRepo.Delete(sales);
         }
     }
 }
