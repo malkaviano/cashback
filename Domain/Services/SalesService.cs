@@ -31,10 +31,7 @@ namespace Domain.Services
                                             SalesStatus.APPROVED :
                                             SalesStatus.VALIDATING;
 
-            var result = strategy.CashbackValue(entity.Value);
-
-            entity.CashbackValue = result.cashback;
-            entity.CashbackPercentage = result.percentage;
+            strategy.Apply(entity);
 
             await salesRepo.Create(entity);
         }
@@ -60,10 +57,7 @@ namespace Domain.Services
 
             var newSales = Mapping.Mapper.Map(entity, sales);
 
-            var result = strategy.CashbackValue(newSales.Value);
-
-            newSales.CashbackValue = result.cashback;
-            newSales.CashbackPercentage = result.percentage;
+            strategy.Apply(newSales);
 
             await salesRepo.Update(newSales);
         }

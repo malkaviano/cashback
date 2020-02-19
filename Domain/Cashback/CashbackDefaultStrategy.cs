@@ -1,4 +1,6 @@
 using Domain.Interfaces;
+using Domain.Models;
+using System;
 
 namespace Domain.Cashback
 {
@@ -10,9 +12,27 @@ namespace Domain.Cashback
 
     public class CashbackDefaultStrategy : ICashbackStrategy
     {
-        public (int percentage, decimal cashback) CashbackValue(decimal value)
+        private readonly DateTime startDate;
+        private readonly DateTime endDate;
+
+        public CashbackDefaultStrategy(DateTime startDate, DateTime endDate)
         {
+            this.startDate = startDate;
+            this.endDate = endDate;
+        }
+
+        public void Apply(Sales sales)
+        {
+            if (sales.Data < startDate || sales.Data > endDate)
+            {
+                // Avoids update inconcistencies, also fraud
+                sales.CashbackValue = 0;
+                sales.CashbackPercentage = 0;
+                return;
+            }
+
             int percentage;
+            decimal value = sales.Value;
 
             if (value <= 1000)
             {
@@ -29,7 +49,8 @@ namespace Domain.Cashback
 
             var factor = (percentage / 100m);
 
-            return (percentage: percentage, cashback: value * factor);
+            sales.CashbackValue = value * factor;
+            sales.CashbackPercentage = percentage;
         }
     }
 }

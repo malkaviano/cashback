@@ -12,7 +12,7 @@ namespace Api.Gateways
             _serviceProvider = serviceProvider;
         }
 
-        public CashbackClient Create()
+        public ICashbackClient Create()
         {
             return _serviceProvider.GetRequiredService<CashbackClient>();
         }

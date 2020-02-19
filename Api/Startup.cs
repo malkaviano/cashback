@@ -45,7 +45,13 @@ namespace Api
 
             services.AddScoped<ISalesService, SalesService>();
 
-            services.AddScoped<ICashbackStrategy, CashbackDefaultStrategy>();
+            services.AddScoped<ICashbackStrategy, CashbackDefaultStrategy>(ctx => {
+                // TODO: Use appsettings
+                return new CashbackDefaultStrategy(
+                    DateTime.Now.AddMonths(-6),
+                    DateTime.Now.AddMonths(6)
+                );
+            });
 
             services.AddMvc()
                     .AddJsonOptions(

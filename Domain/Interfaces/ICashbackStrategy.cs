@@ -1,7 +1,9 @@
+using Domain.Models;
+
 namespace Domain.Interfaces
 {
     public interface ICashbackStrategy
     {
-        (int percentage, decimal cashback) CashbackValue(decimal value);
+        void Apply(Sales sales);
     }
 }
