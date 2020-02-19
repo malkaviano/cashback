@@ -5,10 +5,10 @@ namespace Domain.Interfaces {
     public interface ISalesRepository
     {
         Task<Sales[]> Get();
-        Task<Sales> Find(int id);
+        Task<Sales> Find(long id);
         Task Create(Sales entity);
         Task Update(Sales entity);
-        Task Delete(int id);
+        Task Delete(long id);
         Task Save();
     }
 }

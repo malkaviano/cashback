@@ -6,7 +6,7 @@ namespace Domain.Models {
     public class Reseller {
         private string cpf;
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Cpf {
             get { return cpf; }

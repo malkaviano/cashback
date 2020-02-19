@@ -15,8 +15,52 @@ namespace EFRepository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Sales>()
-                .Property(r => r.Value)
+                .Property(s => s.Id)
+                .HasColumnType("bigint");
+
+            modelBuilder.Entity<Sales>()
+                .Property(s => s.Data)
+                .IsRequired();
+
+            modelBuilder.Entity<Sales>()
+                .Property(s => s.Code)
+                .IsRequired();
+
+            modelBuilder.Entity<Sales>()
+                .Property(s => s.Value)
+                .IsRequired();
+
+            modelBuilder.Entity<Sales>()
+                .Property(s => s.Value)
                 .HasColumnType("decimal(10,2)");
+
+            modelBuilder.Entity<Sales>()
+                .Property(s => s.Cpf)
+                .IsRequired();
+
+            modelBuilder.Entity<Reseller>()
+                .Property(s => s.Id)
+                .HasColumnType("bigint");
+
+            modelBuilder.Entity<Reseller>()
+                .Property(r => r.Cpf)
+                .IsRequired();
+
+            modelBuilder.Entity<Reseller>()
+                .HasIndex(r => r.Cpf)
+                .IsUnique();
+
+            modelBuilder.Entity<Reseller>()
+                .Property(r => r.Email)
+                .IsRequired();
+
+            modelBuilder.Entity<Reseller>()
+                .HasIndex(r => r.Email)
+                .IsUnique();
+
+            modelBuilder.Entity<Reseller>()
+                .Property(r => r.Name)
+                .IsRequired();
 
             modelBuilder.Entity<Reseller>()
                 .HasMany(s => s.Sales)

@@ -8,7 +8,7 @@ namespace Domain.Models
     {
         private string cpf;
 
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public string Code { get; set; }
 

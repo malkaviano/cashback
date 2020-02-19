@@ -45,7 +45,7 @@ namespace EFRepository
             await context.SaveChangesAsync();
         }
 
-        public async Task<Sales> Find(int id)
+        public async Task<Sales> Find(long id)
         {
             return await context.Sales.FindAsync(id);
         }
@@ -57,7 +57,7 @@ namespace EFRepository
             await Save();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(long id)
         {
             var result = await Find(id);
 

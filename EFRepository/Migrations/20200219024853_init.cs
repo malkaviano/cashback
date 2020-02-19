@@ -4,22 +4,37 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EFRepository.Migrations
 {
-    public partial class sales : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Resellers",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false),
+                    Cpf = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Resellers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Sales",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Code = table.Column<string>(nullable: true),
-                    Cpf = table.Column<string>(nullable: true),
+                    Code = table.Column<string>(nullable: false),
+                    Cpf = table.Column<string>(nullable: false),
                     Value = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Data = table.Column<DateTime>(nullable: false),
                     Status = table.Column<string>(nullable: true),
-                    ResellerId = table.Column<int>(nullable: true)
+                    ResellerId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,6 +48,18 @@ namespace EFRepository.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Resellers_Cpf",
+                table: "Resellers",
+                column: "Cpf",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Resellers_Email",
+                table: "Resellers",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Sales_ResellerId",
                 table: "Sales",
                 column: "ResellerId");
@@ -42,6 +69,9 @@ namespace EFRepository.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Sales");
+
+            migrationBuilder.DropTable(
+                name: "Resellers");
         }
     }
 }
