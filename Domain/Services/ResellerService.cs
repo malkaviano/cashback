@@ -1,9 +1,8 @@
-using EFRepository;
 using Domain.Interfaces;
 using Domain.Models;
 using System.Threading.Tasks;
 
-namespace Api.Services {
+namespace Domain.Services {
     public class ResellerService: IService<Reseller> {
         private readonly IRepository<Reseller> repository;
 

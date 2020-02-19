@@ -1,5 +1,4 @@
 using System.Linq;
-using EFRepository;
 using Domain.Interfaces;
 using Domain.Models;
 using System.Threading.Tasks;
@@ -7,7 +6,7 @@ using System;
 using Domain.Values;
 using AutoMapper;
 
-namespace Api.Services
+namespace Domain.Services
 {
     public class SalesService : ISalesService
     {
@@ -59,7 +58,7 @@ namespace Api.Services
                 throw new Exception("Sales not found");
             }
 
-            var newSales = mapper.Map(entity, sales);
+            var newSales = Mapping.Mapper.Map(entity, sales);
 
             await salesRepo.Update(newSales);
         }

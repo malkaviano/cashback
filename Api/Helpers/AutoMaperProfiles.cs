@@ -13,11 +13,6 @@ namespace Api.Helpers
             CreateMap<SalesPost, Sales>();
 
             CreateMap<SalesPut, Sales>();
-
-            CreateMap<Sales, Sales>()
-                .ForAllMembers(o => o.Condition((source, destination, member) => {
-                    return member != null && member.ToString().Trim() != "";
-                }));
         }
     }
 }

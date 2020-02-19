@@ -13,7 +13,7 @@ using Microsoft.Extensions.Options;
 using EFRepository;
 using Domain.Interfaces;
 using Domain.Models;
-using Api.Services;
+using Domain.Services;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
