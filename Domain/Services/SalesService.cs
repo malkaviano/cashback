@@ -11,32 +11,19 @@ namespace Domain.Services
     public class SalesService : ISalesService
     {
         private readonly ISalesRepository salesRepo;
-        private readonly IRepository<Reseller> resellerRepo;
         private readonly IMapper mapper;
 
         public SalesService(
             ISalesRepository salesRepo,
-            IRepository<Reseller> resellerRepo,
             IMapper mapper
         )
         {
             this.salesRepo = salesRepo;
-            this.resellerRepo = resellerRepo;
             this.mapper = mapper;
         }
 
         public async Task Create(Sales entity)
         {
-            // TODO: Move to repository
-            var reseller = await resellerRepo.Get(entity.Cpf);
-
-            if (reseller == null)
-            {
-                throw new Exception("CPF not found");
-            }
-
-            entity.Reseller = reseller;
-
             entity.Status = entity.Cpf == "15350946056" ?
                                             SalesStatus.APPROVED :
                                             SalesStatus.VALIDATING;

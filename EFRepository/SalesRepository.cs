@@ -4,6 +4,7 @@ using Domain.Interfaces;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System;
 
 namespace EFRepository
 {
@@ -23,6 +24,17 @@ namespace EFRepository
 
         public async Task Create(Sales entity)
         {
+            var reseller = await context.Resellers.SingleOrDefaultAsync(
+                r => r.Cpf == entity.Cpf
+            );
+
+            if (reseller == null)
+            {
+                throw new Exception("Reseller CPF not found");
+            }
+
+            entity.Reseller = reseller;
+
             context.Sales.Add(entity);
 
             await Save();
