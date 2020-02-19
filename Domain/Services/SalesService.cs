@@ -74,9 +74,11 @@ namespace Domain.Services
             await salesRepo.Delete(sales);
         }
 
-        public async Task<Sales[]> GetByCpf(string cpf)
+        public async Task<SalesResult[]> GetByCpf(string cpf)
         {
-            return await salesRepo.GetByCpf(cpf);
+            var result = await salesRepo.GetByCpf(cpf);
+
+            return result.Select(s => Mapping.Mapper.Map<SalesResult>(s)).ToArray();
         }
     }
 }

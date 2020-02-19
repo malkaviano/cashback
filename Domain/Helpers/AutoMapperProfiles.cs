@@ -1,6 +1,7 @@
 using AutoMapper;
 using Domain.Models;
 using System;
+using Domain.Values;
 
 // Jon Skeet self contained solution for use inside libs
 public static class Mapping
@@ -23,13 +24,9 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<Sales, Sales>()
-                .ForAllMembers(o => o.Condition((source, destination, member) => {
-                    return member != null &&
-                            member.ToString().Trim() != "" &&
-                            member as decimal? != 0 &&
-                            member as DateTime? != DateTime.MinValue
-                            ;
-                }));
+        CreateMap<Sales, SalesResult>().ForMember(
+            dest => dest.Cpf,
+            opt => opt.MapFrom(src => src.Reseller.Cpf)
+        );
     }
 }
