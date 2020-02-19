@@ -35,7 +35,7 @@ namespace Api
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddScoped<IRepository<Reseller>, ResellerRepository>();
+            services.AddScoped<IResellerRepository, ResellerRepository>();
 
             services.AddScoped<ISalesRepository, SalesRepository>();
 

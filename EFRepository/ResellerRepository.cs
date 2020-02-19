@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace EFRepository
 {
-    public class ResellerRepository : IRepository<Reseller>
+    public class ResellerRepository : IResellerRepository
     {
         private readonly DataContext context;
 

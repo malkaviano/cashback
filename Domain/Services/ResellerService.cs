@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Services {
     public class ResellerService: IResellerService {
-        private readonly IRepository<Reseller> repository;
+        private readonly IResellerRepository repository;
 
-        public ResellerService(IRepository<Reseller> repository)
+        public ResellerService(IResellerRepository repository)
         {
             this.repository = repository;
         }
