@@ -27,13 +27,22 @@ namespace Api.Controllers
         [HttpGet("{cpf}")]
         public async Task<IActionResult> Get(String cpf)
         {
-            var result = await service.GetByCpf(cpf);
+            try
+            {
+                var result = await service.GetByCpf(cpf);
 
-            if(result == null) {
-                return new NotFoundResult();
+                if (result == null)
+                {
+                    return new NotFoundResult();
+                }
+
+                return new OkObjectResult(result);
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
             }
 
-            return new OkObjectResult(result);
         }
 
         // POST api/reseller
@@ -42,9 +51,17 @@ namespace Api.Controllers
         {
             var reseller = mapper.Map<Reseller>(dto);
 
-            await service.Create(reseller);
+            try
+            {
+                await service.Create(reseller);
 
-            return Created(new Uri($"/api/resseler/#{reseller.Cpf}", UriKind.Relative), reseller);
+                return Created(new Uri($"/api/resseler/#{reseller.Cpf}", UriKind.Relative), reseller);
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
+
         }
     }
 }
