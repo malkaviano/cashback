@@ -16,6 +16,7 @@ using Domain.Models;
 using Domain.Services;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Api.Gateways;
 
 namespace Api
 {
@@ -50,6 +51,10 @@ namespace Api
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddCors();
+
+            services.AddHttpClient<CashbackClient>("CashbackClient", x => { x.BaseAddress = new Uri("https://mdaqk8ek5j.execute-api.us-east-1.amazonaws.com"); });
+
+            services.AddSingleton<CashbackClientFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
