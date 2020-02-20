@@ -25,6 +25,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System.IO;
 
 namespace Api
 {
@@ -127,6 +130,12 @@ namespace Api
                 loggingBuilder.AddDebug();
                 loggingBuilder.AddConsole();
             });
+
+            // Register the Swagger generator
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cashback API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -145,6 +154,17 @@ namespace Api
             app.UseAuthentication();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cashback API");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseMvc();
         }
