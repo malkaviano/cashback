@@ -15,7 +15,7 @@ How to use:
 - Consume Sales and Cashback endpoints
 
 Documentation:
-- Root path will show the swagger
+- Root path will show the swagger (not showing on the deploy, locally it's ok)
 
 About:
 
