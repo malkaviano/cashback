@@ -4,7 +4,7 @@ using Domain.Models;
 using Moq;
 using Domain.Cashback;
 
-namespace Domain.Tests.Models
+namespace Domain.Tests.Cashback
 {
     public class CashbackDefaultStrategyTests
     {
