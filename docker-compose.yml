@@ -1,0 +1,37 @@
+version: "3"
+services:
+    web:
+        build: .
+        ports:
+            - "80:80"
+        depends_on:
+            - db
+            - auth
+            - data
+        network_mode: 'host'
+    auth:
+        build:
+            context: ./DockerMigrations/Auth
+        ports:
+            - "80:80"
+        depends_on:
+            - db
+        network_mode: 'host'
+    data:
+        build:
+            context: ./DockerMigrations/AppData
+        ports:
+            - "80:80"
+        depends_on:
+            - db
+        network_mode: 'host'
+    db:
+        image: "mcr.microsoft.com/mssql/server:2019-CU1-ubuntu-16.04"
+        expose:
+            - "1433"
+        ports:
+            - "1433:1433"
+        environment:
+            SA_PASSWORD: "thisIS300spartans"
+            ACCEPT_EULA: "Y"
+        network_mode: 'host'
