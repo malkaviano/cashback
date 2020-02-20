@@ -11,17 +11,14 @@ namespace Domain.Services
     public class SalesService : ISalesService
     {
         private readonly ISalesRepository salesRepo;
-        private readonly IMapper mapper;
         private readonly ICashbackStrategy strategy;
 
         public SalesService(
             ISalesRepository salesRepo,
-            IMapper mapper,
             ICashbackStrategy strategy
         )
         {
             this.salesRepo = salesRepo;
-            this.mapper = mapper;
             this.strategy = strategy;
         }
 
