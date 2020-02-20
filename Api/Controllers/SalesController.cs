@@ -6,6 +6,8 @@ using Domain.Interfaces;
 using Domain.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
+using Api.Helpers;
 
 namespace Api.Controllers
 {
@@ -16,12 +18,19 @@ namespace Api.Controllers
         private readonly ISalesService salesService;
         private readonly IResellerService resellerService;
         private readonly IMapper mapper;
+        private readonly ILogger logger;
 
-        public SalesController(ISalesService salesService, IResellerService resellerService, IMapper mapper)
+        public SalesController(
+            ISalesService salesService,
+            IResellerService resellerService,
+            IMapper mapper,
+            ILogger<SalesController> logger
+        )
         {
             this.salesService = salesService;
             this.resellerService = resellerService;
             this.mapper = mapper;
+            this.logger = logger;
         }
 
         // GET api/sales
@@ -42,6 +51,8 @@ namespace Api.Controllers
             }
             catch (System.Exception ex)
             {
+                LogHelper.Error(logger, ex);
+
                 return StatusCode(500);
             }
 
@@ -61,7 +72,9 @@ namespace Api.Controllers
             }
             catch (System.Exception ex)
             {
-                return new BadRequestObjectResult(ex.Message);
+                LogHelper.Error(logger, ex);
+
+                return BadRequest();
             }
 
         }
@@ -78,7 +91,9 @@ namespace Api.Controllers
             }
             catch (System.Exception ex)
             {
-                return new BadRequestObjectResult(ex.Message);
+                LogHelper.Error(logger, ex);
+
+                return BadRequest();
             }
         }
 
@@ -94,7 +109,9 @@ namespace Api.Controllers
             }
             catch (System.Exception ex)
             {
-                return new BadRequestObjectResult(ex.Message);
+                LogHelper.Error(logger, ex);
+
+                return BadRequest();
             }
         }
     }

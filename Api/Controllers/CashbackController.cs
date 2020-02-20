@@ -23,11 +23,19 @@ namespace Api.Controllers
 
         // GET api/cashback/cpf
         [HttpGet("{cpf}")]
-        public async Task<CashbackGet> Get(string cpf)
+        public async Task<ActionResult> Get(string cpf)
         {
-            var client = cashbackFactory.Create();
+            try
+            {
+                var client = cashbackFactory.Create();
 
-            return await client.GetCashback(cpf);
+                return new OkObjectResult(await client.GetCashback(cpf));
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
+
         }
     }
 }

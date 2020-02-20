@@ -120,6 +120,13 @@ namespace Api
                     return Task.CompletedTask;
                 };
             });
+
+            services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.ClearProviders();
+                loggingBuilder.AddDebug();
+                loggingBuilder.AddConsole();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
