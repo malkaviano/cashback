@@ -1,7 +1,7 @@
 # cashback
 Cashback API - Dev Test.
 
-This is a programming test, do not copy use it for learning only.
+This is a programming test, do not copy, use it for learning only. Ofc you can do whatever you want, it's just a TIP.
 
 Deploy:
 - Copy Dockerfile, docker-compose.yml and DockerMigrations outside the project folder (global.json conflict)
