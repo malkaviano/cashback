@@ -17,9 +17,13 @@ How to use:
 Documentation:
 - Root path will show the swagger
 
+Tests:
+- For now only relevant parts of Domain have unit tests
+- Using xUnit and Moq
+
 About:
 
-This project was made in VSCode and Ubuntu 18. Although MS still have some design problems, it's totally doable.
+This project was made in VSCode and Ubuntu 18.
 
 Developed with .net core 2.2 with EF core and migrations
 
@@ -28,4 +32,4 @@ If you have any problems using it in Visual Studio, plz open a ticket.
 TODO:
 - Better error handling
 - Refactor some code
-- Improvements
+- Improve Tests
