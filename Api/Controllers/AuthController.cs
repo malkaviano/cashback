@@ -20,9 +20,7 @@ namespace Api.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<UserToken>> Login([FromBody] UserInfo userInfo)
         {
-            var result = await service.Login(userInfo);
-
-            if (result.Succeeded)
+            if (await service.Login(userInfo))
             {
                 return service.BuildToken(userInfo);
             }

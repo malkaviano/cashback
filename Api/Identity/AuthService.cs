@@ -26,13 +26,13 @@ namespace Api.Identity
             _configuration = configuration;
         }
 
-        public async Task<SignInResult> Login(UserInfo userInfo)
+        public async Task<bool> Login(UserInfo userInfo)
         {
-            return await _signInManager.PasswordSignInAsync(
-                userInfo.Email,
-                userInfo.Password,
-                isPersistent: false,
-                lockoutOnFailure: false
+            var user = _userManager.FindByEmailAsync(userInfo.Email).Result;
+
+            return await _userManager.CheckPasswordAsync(
+                user,
+                userInfo.Password
             );
         }
 
