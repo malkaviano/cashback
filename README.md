@@ -1,3 +1,5 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/malkaviano/cashback/badge)](https://www.codefactor.io/repository/github/malkaviano/cashback)
+
 # cashback
 Cashback API - Dev Test.
 
